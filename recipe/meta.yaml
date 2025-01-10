@@ -6,24 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-bio-sample-data-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-bio-sample-data-{{ version }}.tar.gz
   sha256: f2fae7c76fc4e3383c0b0a1d365fe88ab4908f781d0b8b5af4a12015b90d10be
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 1
+  number: 2
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python {{ python_min }}
   run:
     - aiobotocore >=1.0.1
     - dask-core
     - fsspec
     - numpy
-    - python >=3.8
+    - python >={{ python_min }}
     - s3fs
     - zarr >=2.12.0
     - napari
@@ -38,6 +38,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/chili-chiu/napari-bio-sample-data
